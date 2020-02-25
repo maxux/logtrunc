@@ -6,8 +6,8 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#define SRVMAIN    "zinit"
-#define MAXSIZEMB  1536
+#define SRVMAIN    "/sbin/zinit"
+#define MAXSIZE    100 * 1024    // 100 KB
 
 #ifndef RELEASE
     #define debug(...) { printf(__VA_ARGS__); }
@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
     int inotfd;
     struct inotify_event event;
     struct stat stbuf;
-    off_t maxsize = MAXSIZEMB * 1024 * 1024;
+    off_t maxsize = MAXSIZE;
 
     debug("[+] initializing logtrunc\n");
 
