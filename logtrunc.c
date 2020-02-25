@@ -86,7 +86,7 @@ int main(int argc, char *argv[]) {
     }
 
     filename = argv[1];
-    debug("[+] monitoring logfile: %s\n", filename);
+    printf("monitoring logfile: %s\n", filename);
 
     if(argc > 2) {
         service = argv[2];
@@ -99,7 +99,7 @@ int main(int argc, char *argv[]) {
     // registering file to watch
     watchfile(inotfd, filename);
 
-    debug("[+] monitoring for maxsize: %lu bytes (%.2f GB)\n", maxsize, (maxsize / (1024.0 * 1024 * 1024)));
+    debug("[+] monitoring for maxsize: %lu bytes (%.2f KB)\n", maxsize, (maxsize / (1024.0)));
 
     while(read(inotfd, &event, sizeof(event)) > 0) {
         if(event.mask & IN_IGNORED) {
@@ -127,6 +127,8 @@ int main(int argc, char *argv[]) {
             // truncate the file
             if(truncate(filename, 0) < 0)
                 warnp(filename);
+
+            printf("%s: logfile truncated, restarting dependencies\n", filename);
 
             // restarting dependant service
             if(service)
