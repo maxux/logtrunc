@@ -8,7 +8,7 @@ OBJ=$(SRC:.c=.o)
 all: $(EXEC)
 
 release: CFLAGS += -DRELEASE -O2
-release: clean $(EXEC)
+release: clean all
 
 $(EXEC): $(OBJ)
 	$(CC) -o $@ $^ $(LDFLAGS)
