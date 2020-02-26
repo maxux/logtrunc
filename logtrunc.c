@@ -7,7 +7,7 @@
 #include <unistd.h>
 
 #define SRVMAIN    "/sbin/zinit"
-#define MAXSIZE    100 * 1024    // 100 KB
+#define MAXSIZE    8 * 1024 * 1024    // 8 MB
 
 #ifndef RELEASE
     #define debug(...) { printf(__VA_ARGS__); }
